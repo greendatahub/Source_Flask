@@ -115,9 +115,9 @@ def index():
 def predict(num=None):
     if request.method == 'POST':
         path1 = request.form['upload-file']
-        path2 = 'C:/Users/GC/Downloads/Past_Data.xlsx'
-        model_path ='C:/Users/GC/Downloads/Source/Final_LSTM.hdf5'
-        scaler_path = 'C:/Users/GC/Downloads/Source/scaler.joblib'
+        path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx '
+        model_path ='/home/ubuntu/Source_flask/Final_LSTM.hdf5'
+        scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'
         return_date = request.form['return_date']
         previous_data, start_date,size = preprocessing_ML(path1,return_date)
         now_data = preprocessing_ML2(path2,start_date)
