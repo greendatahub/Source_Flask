@@ -131,5 +131,5 @@ def predict(num=None):
 
 
 if __name__ == '__main__':
-    #app.run(host = '54.180.8.175')
-    app.run(debug = True)
+    app.run(host = '54.180.8.175', debug = True)
+    #app.run(debug = True)
