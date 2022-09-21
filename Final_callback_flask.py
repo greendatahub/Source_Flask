@@ -115,7 +115,7 @@ def index():
 def predict(num=None):
     if request.method == 'POST':
         path1 = request.form['upload-file']
-        path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx '
+        path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path ='/home/ubuntu/Source_flask/Final_LSTM.hdf5'
         scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'
         return_date = request.form['return_date']
