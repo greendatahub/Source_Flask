@@ -10,7 +10,7 @@ import warnings
 import joblib
 #from sklearn.externals import joblib
 warnings.filterwarnings(action='ignore')
-from flask import Flask
+from flask import Flask,request
 
 def preprocessing_ML(path,return_date): # return_date 형태는 '2021-01-05', ''포함해 앞과 같은 형태 #매개변수가 모델 경로 지정
     # 데이터 로드
@@ -107,8 +107,8 @@ class prediction(object):
 
 app = Flask(__name__)
 
-@app.route('/predict', methods = ['POST'])
-def predict(num=None):
+@app.route('/', methods = ['POST'])
+def (num=None):
     params = request.get_json()
     path1 = params['path1']
     path2 = params['path2']
