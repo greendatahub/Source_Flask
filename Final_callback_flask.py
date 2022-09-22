@@ -107,19 +107,21 @@ class prediction(object):
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/predict', methods = ['POST'])
 def predict(num=None):
-    path1 = sys.argv[1]
-    path2 = sys.argv[2]
-    return_date = sys.argv[3]
-    model_path = sys.argv[4]
-    scaler_path = sys.argv[5]
+    params = request.get_json()
+    path1 = params['path1']
+    path2 = params['path2']
+    model_path = params['model_path']
+    scaler_path =  params['scaler_path']
+    return_date = params['return_date']
     previous_data, start_date,size = preprocessing_ML(path1,return_date)
     now_data = preprocessing_ML2(path2,start_date)
     final_DF = pd.concat([previous_data,now_data])
     length = len(final_DF)-2
     model = prediction(model_path,scaler_path)
-    return model.prediction_output(final_DF,length,size,return_date)
+    response = model.prediction_output(final_DF,length,size,return_date)
+    return jsonify(response)
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
