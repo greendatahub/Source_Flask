@@ -107,20 +107,19 @@ class prediction(object):
 
 app = Flask(__name__)
 
-@app.route('/predict', methods = ['GET', 'POST'])
+@app.route('/')
 def predict(num=None):
-    if request.method == 'POST':
-        path1 = sys.argv[1]
-        path2 = sys.argv[2]
-        return_date = sys.argv[3]
-        model_path = sys.argv[4]
-        scaler_path = sys.argv[5]
-        previous_data, start_date,size = preprocessing_ML(path1,return_date)
-        now_data = preprocessing_ML2(path2,start_date)
-        final_DF = pd.concat([previous_data,now_data])
-        length = len(final_DF)-2
-        model = prediction(model_path,scaler_path)
-        model.prediction_output(final_DF,length,size,return_date)
+    path1 = sys.argv[1]
+    path2 = sys.argv[2]
+    return_date = sys.argv[3]
+    model_path = sys.argv[4]
+    scaler_path = sys.argv[5]
+    previous_data, start_date,size = preprocessing_ML(path1,return_date)
+    now_data = preprocessing_ML2(path2,start_date)
+    final_DF = pd.concat([previous_data,now_data])
+    length = len(final_DF)-2
+    model = prediction(model_path,scaler_path)
+    return model.prediction_output(final_DF,length,size,return_date)
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
