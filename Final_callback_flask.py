@@ -108,7 +108,7 @@ class prediction(object):
 app = Flask(__name__)
 
 @app.route('/', methods = ['POST'])
-def (num=None):
+def predict(num=None):
     params = request.get_json()
     path1 = params['path1']
     path2 = params['path2']
