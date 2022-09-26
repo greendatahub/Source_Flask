@@ -117,7 +117,7 @@ def index():
 '''
 @app.route('/', methods = ['POST','GET'])
 def predict():
-    if request.method == "GET" | request.method == "POST":
+    if request.method == "GET" or request.method == "POST":
         return render_template('index.html')
     if request.method == "POST":
         path1 = request.form['upload-file']
