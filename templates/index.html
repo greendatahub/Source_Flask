@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
    <body>
-      
+      <div>
+         {% if response %}
+            {{ response }}
+         {% endif %}
+      </div>
       <form class = "" action ="/" method="POST">
          <div>
             <input type="file" name="upload-file" value="">
