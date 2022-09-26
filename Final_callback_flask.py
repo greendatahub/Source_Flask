@@ -111,7 +111,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 @app.route('/')
-@app.route('index/', methods = ['POST','GET'])
+@app.route('/index', methods = ['POST','GET'])
 def index():
         return render_template('index.html')
 
