@@ -112,6 +112,8 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 if response:
     make_response(jsonify(response),200)
+else:
+    pass
 
 @app.route('/', methods = ['POST','GET'])
 def index():
