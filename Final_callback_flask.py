@@ -117,7 +117,7 @@ def index():
 @app.route('/predict', methods = ['POST','GET'])
 def predict():
     if request.method == "POST":
-        file = request.files['upload-file']
+        file = request.form['upload-file']
         filename = file.filename
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         path1 = url_for('static', filename = 'predict/' + filename)
