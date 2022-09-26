@@ -112,7 +112,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/predict', methods = ['POST','GET'])
+@app.route('/', methods = ['POST','GET'])
 def predict():
     if request.method == "POST":
         path1 = request.form['upload-file']
@@ -126,7 +126,6 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        redirect(url_for("http://54.180.8.175:5000/"))
         return jsonify(response)
         #return jsonify(response)
         
