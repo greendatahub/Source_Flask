@@ -104,26 +104,21 @@ class prediction(object):
     for i in date_list:
         date.append(i.strftime("%Y-%m-%d"))
     total_output = {'date': date , 'pred' : value}
-    print(total_output)
+    #print(total_output)
     return total_output
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'static/tmp'
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
-@app.route('/')
-@app.route('/index', methods = ['POST','GET'])
+@app.route('/', methods = ['POST','GET'])
 def index():
         return render_template('index.html')
 
-@app.route('/upload', methods = ['POST','GET'])
-def upload():
+@app.route('/')
+@app.route('/predict', methods = ['POST','GET'])
+def predict():
     if request.method == "POST":
-        file = request.files['file']
-        #path1 = request.form['upload-file']
-        filename = file.filename
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        path1 = url_for('static', filename = 'tmp/' + filename)
+        path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
         scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'
@@ -134,7 +129,8 @@ def upload():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        return render_template('index.html', filename=path1, response = response)
+        print(response)
+        return response
 
 
 # 표준화 전처리 후 preprocessing_LSTM 필요
