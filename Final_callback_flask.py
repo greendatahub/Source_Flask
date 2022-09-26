@@ -130,7 +130,7 @@ def index():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        return render_template('index.html', response = jsonify(response)
+        return render_template('index.html', response = jsonify(response))
     
 
 
