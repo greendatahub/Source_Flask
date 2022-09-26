@@ -12,7 +12,7 @@ import json
 import os
 #from sklearn.externals import joblib
 warnings.filterwarnings(action='ignore')
-from flask import Flask,request,render_template,jsonify,redirect,url_for
+from flask import Flask,request,render_template,jsonify,redirect,url_for,make_response
 
 def preprocessing_ML(path,return_date): # return_date 형태는 '2021-01-05', ''포함해 앞과 같은 형태 #매개변수가 모델 경로 지정
     # 데이터 로드
@@ -134,12 +134,8 @@ def index():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        response = app.response_class(
-            response=json.dumps(response),
-            status=200,
-            mimetype='application/json')
-        print(response)
-        return render_template('index.html', response = response)
+        return make_response(jsonify(response),201)
+        #return render_template('index.html', response = make_response(jsonifyresponse)
     
 
 
