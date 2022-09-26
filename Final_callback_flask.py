@@ -110,11 +110,12 @@ class prediction(object):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
-'''
+
 @app.route('/', methods = ['POST','GET'])
 def index():
+    if request.method == "POST":
         return render_template('index.html')
-'''
+
 @app.route('/', methods = ['POST','GET'])
 def predict():
     if request.method == "POST":
@@ -139,6 +140,5 @@ def predict():
 
 
 if __name__ == '__main__':
-    return render_template('index.html')
     app.run(host = '0.0.0.0', debug = True)
     #app.run(debug = True)
