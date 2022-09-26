@@ -108,17 +108,21 @@ class prediction(object):
     return total_output
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
-@app.route('/', methods = ['POST','GET'])
+@app.route('/')
+@app.route('index/', methods = ['POST','GET'])
 def index():
         return render_template('index.html')
 
-@app.route('/predict', methods = ['POST','GET'])
-def predict():
+@app.route('/upload', methods = ['POST','GET'])
+def upload():
     if request.method == "POST":
-        path1 = request.form['upload-file']
+        file = request.files['file']
         #path1 = request.form['upload-file']
-        url_for('static')
+        filename = file.filename
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        path1 = url_for('static', filename = 'uploads/' + filename)
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
         scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'
@@ -129,7 +133,7 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        return render_template('index.html', response = response)
+        return render_template('index.html', filename=path1, response = response)
 
 
 # 표준화 전처리 후 preprocessing_LSTM 필요
