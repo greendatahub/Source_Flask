@@ -108,7 +108,7 @@ class prediction(object):
     return total_output
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 
 @app.route('/')
 @app.route('/index', methods = ['POST','GET'])
