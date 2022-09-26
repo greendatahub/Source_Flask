@@ -118,8 +118,7 @@ def index():
 
 @app.route('/', methods = ['POST','GET'])
 def predict():
-    try:
-    #if request.method == "POST":
+    if request.method == "POST":
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
@@ -133,8 +132,6 @@ def predict():
         response = model.prediction_output(final_DF,length,size,return_date)
         #return make_response(jsonify(response),200)
         #return make_response(jsonify(response),200)
-        return json.dumps(response)
-    except:
         return json.dumps(response)
         #return render_template('index.html', response = make_response(jsonify(response)))
     
