@@ -130,7 +130,7 @@ def preidct():
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
         #return make_response(jsonify(response),200)
-        return render_template('index.html', response = make_response(jsonifyresponse)),make_response(jsonify(response),200)
+        return render_template('index.html', response = make_response(jsonifyresponse))
     
 
 
