@@ -108,7 +108,7 @@ class prediction(object):
 
 app = Flask(__name__)
 
-@app.route('/', methods = ['POST','GET'])
+@app.route('/predict', methods = ['POST','GET'])
 def index():
     return render_template('index.html')
 
@@ -126,7 +126,7 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        return response
+        return jsonify(response)
         #return jsonify(response)
         
 # 표준화 전처리 후 preprocessing_LSTM 필요
