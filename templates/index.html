@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html>
-   <body>
-
-      <form class = "" action ="predict" method="POST">
-         <input type="file" name="upload-file" value="">
-         <input type="submit" name="" value="Submit">
-         <p>return_date <input type="text" name="return_date"></p>
-      </form>
-   </body>
-</html>
+<head>
+<body>
+    {% if filename %}
+        <div>
+            <path1="{{filename}}">
+        </div>
+    
+        <div>
+            
+            <p>{{response}}</p>
+            
+        </div>
+    {% endif %}
+    <form method="post" action="/upload" enctype="multipart/form-data">      
+        <input type="file" name="file">
+        <input type="submit" value="Submit">
+       <p>return_date <input type="text" name="return_date"></p>
+    </form>
+    </div>
+</body>
+</head>
