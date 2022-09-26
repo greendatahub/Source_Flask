@@ -134,6 +134,11 @@ def index():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
+        response = app.response_class(
+            response=json.dumps(response),
+            status=200,
+            mimetype='application/json')
+        print(response)
         return render_template('index.html', response = response)
     
 
