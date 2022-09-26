@@ -116,10 +116,10 @@ def index():
         return render_template('index.html')
 '''
 @app.route('/', methods = ['POST','GET'])
-def predict():
+def preidct():
+    if request.method == "GET":
+        return render_template('index.html')
     if request.method == "POST":
-        def show():
-            return render_template('index.html')
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
