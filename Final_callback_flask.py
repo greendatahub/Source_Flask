@@ -112,7 +112,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/', methods = ['POST','GET'])
+@app.route('/predict', methods = ['POST','GET'])
 def predict():
     if request.method == "POST":
         path1 = request.form['upload-file']
