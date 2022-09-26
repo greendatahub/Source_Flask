@@ -110,14 +110,14 @@ class prediction(object):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
-try:
-    make_response(jsonify(response),200)
-except:
-    pass
-
 @app.route('/', methods = ['POST','GET'])
 def index():
     return render_template('index.html')
+
+try:
+    make_response(jsonify(response),200)
+except:
+    print("Error!")
 
 @app.route('/', methods = ['POST','GET'])
 def predict():
