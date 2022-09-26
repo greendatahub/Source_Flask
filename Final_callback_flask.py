@@ -116,8 +116,12 @@ def index():
         return render_template('index.html')
 '''
 
+
+
 @app.route('/', methods = ['POST','GET'])
 def index():
+    if request.method == "GET":
+        return render_template('index.html')
     if request.method == "POST":
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
