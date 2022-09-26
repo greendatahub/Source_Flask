@@ -11,7 +11,7 @@ import joblib
 import json
 #from sklearn.externals import joblib
 warnings.filterwarnings(action='ignore')
-from flask import Flask,request,render_template,jsonify
+from flask import Flask,request,render_template,jsonify,redirect,url_for
 
 def preprocessing_ML(path,return_date): # return_date 형태는 '2021-01-05', ''포함해 앞과 같은 형태 #매개변수가 모델 경로 지정
     # 데이터 로드
@@ -126,6 +126,7 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
+        redirect(url_for(http://54.180.8.175:5000/))
         return jsonify(response)
         #return jsonify(response)
         
