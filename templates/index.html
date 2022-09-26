@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
    <body>
+      {% if filename %}
+         <div>
+            <path1="{{filename}}">
+         </div>
+          
+         <div>
+            
+            <p>{{response}}</p>
+         </div>
+      {% end if %}
+
       <form class = "" action ="predict" method="POST">
          <input type="file" name="upload-file" value="">
          <input type="submit" name="" value="Submit">
