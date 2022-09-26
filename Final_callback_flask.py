@@ -110,7 +110,21 @@ app = Flask(__name__)
 
 @app.route('/', methods = ['POST','GET'])
 def index():
-    return render_template('index.html')
+    if request.method == "POST":
+        path1 = request.form['upload-file']
+        path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
+        model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
+        scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'
+        return_date = request.form['return_date']
+        previous_data, start_date,size = preprocessing_ML(path1,return_date)
+        now_data = preprocessing_ML2(path2,start_date)
+        final_DF = pd.concat([previous_data,now_data])
+        length = len(final_DF)-2
+        model = prediction(model_path,scaler_path)
+        response = model.prediction_output(final_DF,length,size,return_date)
+        return render_template('index.html'), jsonify(response)
+
+'''
 
 @app.route('/', methods = ['POST','GET'])
 def predict():
@@ -127,6 +141,7 @@ def predict():
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
         return jsonify(response)
+'''
 
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
