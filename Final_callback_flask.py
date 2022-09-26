@@ -115,9 +115,13 @@ def index():
     return render_template('index.html')
 
 try:
-    make_response(jsonify(response),200)
+    @app.route('/')
+    def output():
+        return make_response(jsonify(response),200)
 except:
-    print("Error!")
+    @app.route('/')
+    def error():
+        return "Error!"
 
 @app.route('/', methods = ['POST','GET'])
 def predict():
