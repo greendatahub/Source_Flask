@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
    <body>
-      <form class = "" action ="/" method="POST">
-         <input type="file" name="upload-file" value="">
-         <input type="submit" name="" value="Submit">
-         <p>return_date <input type="text" name="return_date"></p>
-      </form>
       
-      <% if response %>
-         {{ response }}
-      <% endif %}
+      <form class = "" action ="/" method="POST">
+         <div>
+            <input type="file" name="upload-file" value="">
+            <input type="submit" name="" value="Submit">
+            <p>return_date <input type="text" name="return_date"></p>
+         </div>
+      </form>
+      <div>
+         <% if response %>
+            {{ response }}
+         <% endif %}
+      </div>
    </body>
 </html>
