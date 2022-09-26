@@ -8,6 +8,7 @@ import tensorflow as tf
 from tensorflow import keras
 import warnings
 import joblib
+import json
 #from sklearn.externals import joblib
 warnings.filterwarnings(action='ignore')
 from flask import Flask,request,render_template,jsonify
@@ -125,7 +126,7 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        return jsonify(response)
+        return json.dumps(response)
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
