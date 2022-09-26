@@ -118,7 +118,7 @@ def index():
 '''
 @app.route('/', methods = ['POST','GET'])
 def preidct():
-    if TRUE:
+    if True:
         return render_template('index.html')
     if request.method == "POST":
         path1 = request.form['upload-file']
