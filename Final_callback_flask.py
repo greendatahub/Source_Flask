@@ -110,13 +110,16 @@ class prediction(object):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
+'''
 
 @app.route('/', methods = ['POST','GET'])
 def index():
         return render_template('index.html')
-
+'''
 @app.route('/', methods = ['POST','GET'])
 def preidct():
+    if TRUE:
+        return render_template('index.html')
     if request.method == "POST":
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
