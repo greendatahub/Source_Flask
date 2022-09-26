@@ -126,7 +126,9 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        return json.dumps(response)
+        return response
+        #return jsonify(response)
+        
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
