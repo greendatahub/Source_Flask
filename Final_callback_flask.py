@@ -111,7 +111,7 @@ app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 if response:
-    return make_response(jsonify(response),200))
+    return make_response(jsonify(response),200)
 
 @app.route('/', methods = ['POST','GET'])
 def index():
