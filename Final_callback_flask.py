@@ -108,7 +108,7 @@ class prediction(object):
     return total_output
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = '/static/uploads/'
+app.config['UPLOAD_FOLDER'] = 'static/tmp'
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 @app.route('/')
@@ -123,7 +123,7 @@ def upload():
         #path1 = request.form['upload-file']
         filename = file.filename
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        path1 = url_for('static', filename = 'uploads/' + filename)
+        path1 = url_for('static', filename = 'tmp/' + filename)
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
         scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'
