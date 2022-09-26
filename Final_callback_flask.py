@@ -110,9 +110,9 @@ class prediction(object):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
-if response:
+try:
     make_response(jsonify(response),200)
-else:
+except:
     pass
 
 @app.route('/', methods = ['POST','GET'])
