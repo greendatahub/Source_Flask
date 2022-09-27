@@ -111,21 +111,22 @@ app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 response = {}
 
-'''
-@app.route('/', methods = ['GET','POST'])
-def index():
-    return render_template('index.html')
-'''
+
 @app.route('/', methods = ['GET','POST'])
 def index():
     if not response:
         return render_template('index.html')
     if response:
         return response
+'''
+@app.route('/', methods = ['GET','POST'])
+def index():
+    if not response:
+        return render_template('index.html')
+'''
 
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
-    global response
     #if request.method == "GET":
     #    return render_template('index.html')
     #if not response:
@@ -143,7 +144,7 @@ def predict():
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
         return redirect(url_for('index'))
-        return response
+        #return response
         #return make_response(jsonify(response),200)
         #return json.dumps(response)
         #return render_template('index.html', response = make_response(jsonify(response)))
