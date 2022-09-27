@@ -125,6 +125,7 @@ def predict():
     #if request.method == "GET":
     #    return render_template('index.html')
     if request.method == "POST":
+        print("Check")
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
