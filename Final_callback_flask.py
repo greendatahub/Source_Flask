@@ -114,6 +114,7 @@ show_response = {}
 
 @app.route('/', methods = ['GET','POST'])
 def output():
+    global response
     if response:
         show_response = response
         response = {}
