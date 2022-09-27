@@ -121,10 +121,12 @@ def index():
     
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
+    global response
     #if request.method == "GET":
     #    return render_template('index.html')
     #if not response:
     #    return render_template('index.html')
+   
     if request.method == "POST" and not response:
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
@@ -143,6 +145,8 @@ def predict():
         #return json.dumps(response)
         #return render_template('index.html', response = make_response(jsonify(response)))
         #return render_template('index.html', response = json.dumps(response))
+    if response:
+        response = {}
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
