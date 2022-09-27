@@ -117,11 +117,10 @@ def index():
     if not response:
         return render_template('index.html')
     if response:
-        return response,redirect(url_for('init'))
+        return response
     
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
-    global response
     #if request.method == "GET":
     #    return render_template('index.html')
     #if not response:
@@ -146,10 +145,7 @@ def predict():
         #return render_template('index.html', response = json.dumps(response))
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
-@app.route('/', methods = ['GET','POST'])
-def init():
-    response = {}
-    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
