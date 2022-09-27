@@ -118,6 +118,7 @@ def index():
         return render_template('index.html')
     if response:
         show_response = response
+        response = {}
         return show_response
 '''
 @app.route('/', methods = ['GET','POST'])
