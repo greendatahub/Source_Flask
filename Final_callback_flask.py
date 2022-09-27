@@ -116,6 +116,7 @@ show_response = {}
 def index():
     global response
     global show_response
+    
     if not response:
         return render_template('index.html')
     if response:
@@ -126,11 +127,12 @@ def index():
 def predict():
     #if request.method == "GET":
     #    return render_template('index.html')
+    global response
+    global show_response
+    
     if not response:
         return render_template('index.html')
     if request.method == "POST":
-        global response
-        global show_response
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
