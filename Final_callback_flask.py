@@ -113,15 +113,17 @@ response = {}
 show_response = {}
 
 @app.route('/', methods = ['GET','POST'])
-def index():
+def output():
     global response
     global show_response
-    
-    if not response:
-        return render_template('index.html')
     if response:
         response = {}
         return show_response
+
+@app.route('/', methods = ['GET','POST'])
+def index():
+    if not response:
+        return render_template('index.html')
 
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
@@ -129,9 +131,8 @@ def predict():
     #    return render_template('index.html')
     global response
     global show_response
-    
-    if not response:
-        return render_template('index.html')
+    #if not response:
+    #    return render_template('index.html')
     if request.method == "POST":
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
@@ -145,7 +146,7 @@ def predict():
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
         show_response = response.copy()
-        return redirect(url_for('index'))
+        return redirect(url_for('output'))
         #return response
         #return make_response(jsonify(response),200)
         #return json.dumps(response)
