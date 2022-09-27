@@ -117,7 +117,7 @@ def index():
         return render_template('index.html')
     if response:
         return response
-
+response = {}
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
     #if request.method == "GET":
@@ -143,7 +143,6 @@ def predict():
         #return json.dumps(response)
         #return render_template('index.html', response = make_response(jsonify(response)))
         #return render_template('index.html', response = json.dumps(response))
-response = {}
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
