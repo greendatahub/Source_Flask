@@ -112,6 +112,12 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 response = {}
 show_response = {}
 
+
+@app.route('/', methods = ['GET','POST'])
+def index():
+    if not response:
+        return render_template('index.html')
+    
 @app.route('/', methods = ['GET','POST'])
 def output():
     global response
@@ -119,12 +125,7 @@ def output():
     if response:
         response = {}
         return show_response
-
-@app.route('/', methods = ['GET','POST'])
-def index():
-    if not response:
-        return render_template('index.html')
-
+    
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
     #if request.method == "GET":
