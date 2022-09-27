@@ -113,7 +113,7 @@ response = {}
 
     
 @app.route('/', methods = ['GET'])
-def predict():
+def index():
     if request.method == "GET":
         return render_template('index.html')
     
