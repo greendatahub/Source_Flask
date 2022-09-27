@@ -137,7 +137,7 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        return redirect(url_for('/'))
+        return redirect(url_for('static'))
         return response
         #return make_response(jsonify(response),200)
         #return json.dumps(response)
