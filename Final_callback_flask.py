@@ -111,11 +111,6 @@ app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 response = {}
 
-@app.route('/', methods = ['GET','POST'])
-def index():
-    global response
-    if not response:
-        return render_template('index.html')
     
 @app.route('/', methods = ['GET','POST'])
 def predict():
