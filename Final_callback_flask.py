@@ -110,21 +110,13 @@ class prediction(object):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 response = {}
-show_response = {}
-
-@app.route('/', methods = ['GET','POST'])
-def output():
-    global response
-    if response:
-        show_response = response
-        response = {}
-        return show_response
 
 @app.route('/', methods = ['GET','POST'])
 def index():
     if not response:
         return render_template('index.html')
-
+    if response:
+        return response
 
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
@@ -151,7 +143,7 @@ def predict():
         #return json.dumps(response)
         #return render_template('index.html', response = make_response(jsonify(response)))
         #return render_template('index.html', response = json.dumps(response))
-        
+response = {}
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
