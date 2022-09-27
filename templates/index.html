@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
    <body>
-      <form class = "" action ="predict" method="POST">
+      <form class = "" action ="predict" method="POST" enctype="multipart/form-data">
          <div>
+            {% csrf_token %}
             <input type="file" name="upload-file" value="">
             <input type="submit" name="submit_button" value="Submit">
             <p>return_date <input type="text" name="return_date"></p>
