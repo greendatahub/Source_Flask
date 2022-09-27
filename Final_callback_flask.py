@@ -111,13 +111,12 @@ app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 
-@app.route('/', methods = ['POST','GET'])
+@app.route('/', methods = ['POST'])
 def index():
     return render_template('index.html')
 
-response = {}
 
-@app.route('/', methods = ['POST','GET'])
+@app.route('/', methods = ['POST'])
 def predict():
     global response
     if request.method == "POST":
@@ -134,13 +133,10 @@ def predict():
         response = model.prediction_output(final_DF,length,size,return_date)
         #return make_response(jsonify(response),200)
         #return make_response(jsonify(response),200)
-        return json.dumps(response)
+        #return json.dumps(response)
         #return render_template('index.html', response = make_response(jsonify(response)))
-    
-@app.route('/', methods = ['POST'])
-def print():
-    return response
-    
+        return render_template('index.html', response = json.dumps(response))
+
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
