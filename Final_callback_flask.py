@@ -117,17 +117,16 @@ def index():
     if not response:
         return render_template('index.html')
     if response:
-        print(make_response(jsonify(response)))
-        response = {}
-        
+        return response
+    
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
     global response
     #if request.method == "GET":
     #    return render_template('index.html')
-    #if not response:
-    #    return render_template('index.html')
-    if request.method == "POST" and not response:
+    if not response:
+        return render_template('index.html')
+    if request.method == "POST":
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
