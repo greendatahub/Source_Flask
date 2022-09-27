@@ -117,8 +117,9 @@ def index():
     if not response:
         return render_template('index.html')
     if response:
-        return make_response(jsonify(response))
-        return render_template('index.html')
+        print(make_response(jsonify(response)))
+        response = {}
+        
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
     global response
