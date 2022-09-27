@@ -110,14 +110,15 @@ class prediction(object):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 response = {}
-
+show_response = {}
 
 @app.route('/', methods = ['GET','POST'])
 def index():
     if not response:
         return render_template('index.html')
     if response:
-        return response
+        show_response = response
+        return show_response
 '''
 @app.route('/', methods = ['GET','POST'])
 def index():
@@ -132,6 +133,7 @@ def predict():
     #if not response:
     #    return render_template('index.html')
     if request.method == "POST":
+        global response
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
