@@ -110,21 +110,21 @@ class prediction(object):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
-'''
+
 @app.route('/', methods = ['POST'])
 def index():
     return render_template('index.html')
-'''
+
 
 response = {}
 
-@app.route('/', methods = ['GET','POST'])
+@app.route('/predict', methods = ['GET','POST'])
 def predict():
     global response
     #if request.method == "GET":
     #    return render_template('index.html')
-    if not response:
-        return render_template('index.html')
+    #if not response:
+    #    return render_template('index.html')
     if request.method == "POST":
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
@@ -137,11 +137,12 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
-        #return response
+        return redirect(url_for('/'))
+        return response
         #return make_response(jsonify(response),200)
         #return json.dumps(response)
         #return render_template('index.html', response = make_response(jsonify(response)))
-        return render_template('index.html', response = json.dumps(response))
+        #return render_template('index.html', response = json.dumps(response))
         
 
 # 표준화 전처리 후 preprocessing_LSTM 필요
