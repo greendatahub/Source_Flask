@@ -110,22 +110,27 @@ class prediction(object):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 response = {}
+show_response = {}
 
 @app.route('/', methods = ['GET','POST'])
 def index():
+    global response
+    global show_response
     if not response:
         return render_template('index.html')
     if response:
-        return response
-response = {}
+        response = {}
+        return show_response
+
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
     #if request.method == "GET":
     #    return render_template('index.html')
-    #if not response:
-    #    return render_template('index.html')
+    if not response:
+        return render_template('index.html')
     if request.method == "POST":
         global response
+        global show_response
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
@@ -137,6 +142,7 @@ def predict():
         length = len(final_DF)-2
         model = prediction(model_path,scaler_path)
         response = model.prediction_output(final_DF,length,size,return_date)
+        show_response = response.copy()
         return redirect(url_for('index'))
         #return response
         #return make_response(jsonify(response),200)
