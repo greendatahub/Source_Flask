@@ -119,7 +119,7 @@ def index():
     
 @app.route('/predict', methods = ['POST'])
 def predict():
-    path1 = request.form.get('file',False)
+    path1 = request.FILES.get('file')
     print(path1)
     path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'  
     model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
