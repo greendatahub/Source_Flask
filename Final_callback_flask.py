@@ -116,12 +116,9 @@ def index():
     global response
     if not response:
         return render_template('index.html')
-    if response:
-        return response
-#    
+    
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
-    global response
     #if request.method == "GET":
     #    return render_template('index.html')
     if request.method == "POST":
