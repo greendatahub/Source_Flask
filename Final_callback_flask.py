@@ -119,11 +119,12 @@ def index():
     
 @app.route('/predict', methods = ['POST'])
 def predict():
-    path1 = request.form['upload-file']
+    path1 = request.form.get('file')
+    print(path1)
     path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'  
     model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
     scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'
-    return_date = request.form['return_date']
+    return_date = request.form('date')
     previous_data, start_date,size = preprocessing_ML(path1,return_date)
     now_data = preprocessing_ML2(path2,start_date)
     final_DF = pd.concat([previous_data,now_data])
