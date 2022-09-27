@@ -131,17 +131,12 @@ def predict():
     model = prediction(model_path,scaler_path)
     response = model.prediction_output(final_DF,length,size,return_date)
     return response
-        '''
-        if not response:
-            print("server err! 500")
-            return make_response(jsonify(response),500)
-        return make_response(jsonify(response),200)
-        '''
-        #return response
-        #return make_response(jsonify(response),200)
-        #return json.dumps(response)
-        #return render_template('index.html', response = make_response(jsonify(response)))
-        #return render_template('index.html', response = json.dumps(response))
+        
+    #return response
+    #return make_response(jsonify(response),200)
+    #return json.dumps(response)
+    #return render_template('index.html', response = make_response(jsonify(response)))
+    #return render_template('index.html', response = json.dumps(response))
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
