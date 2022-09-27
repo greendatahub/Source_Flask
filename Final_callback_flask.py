@@ -119,7 +119,7 @@ def index():
 @app.route('/', methods = ['POST','GET'])
 def predict():
     if request.method == "GET":
-        render_template('index.html')
+        return render_template('index.html')
     if request.method == "POST":
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
