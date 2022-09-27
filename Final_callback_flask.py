@@ -109,14 +109,16 @@ class prediction(object):
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+response = {}
 
 @app.route('/', methods = ['POST'])
 def index():
     return render_template('index.html')
 
-@app.route('/predict', methods = ['POST'])
+@app.route('/', methods = ['POST'])
 def predict():
     if request.method == "POST":
+        global response
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
         model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
@@ -134,6 +136,10 @@ def predict():
         #return render_template('index.html', response = make_response(jsonify(response)))
         #return render_template('index.html', response = json.dumps(response))
         
+@app.route('/', methods = ['POST'])
+def output():
+    return render_template('predict.html', response = response) 
+
 # 표준화 전처리 후 preprocessing_LSTM 필요
 
 
