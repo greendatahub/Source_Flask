@@ -114,8 +114,8 @@ response = {}
 @app.route('/', methods = ['GET','POST'])
 def index():
     global response
-    #if not response:
-    #    return render_template('index.html')
+    if not response:
+        return render_template('index.html')
     if response:
         return response
     
@@ -124,8 +124,6 @@ def predict():
     global response
     #if request.method == "GET":
     #    return render_template('index.html')
-    if not response:
-        return render_template('index.html')
     if request.method == "POST":
         path1 = request.form['upload-file']
         path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'
