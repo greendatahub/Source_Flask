@@ -117,8 +117,7 @@ def index():
     if not response:
         return render_template('index.html')
     if response:
-        return response
-        return redirect(url_for('init'))
+        return response,redirect(url_for('init'))
     
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
