@@ -114,6 +114,7 @@ show_response = {}
 
 @app.route('/', methods = ['GET','POST'])
 def index():
+    global response
     if not response:
         return render_template('index.html')
     if response:
