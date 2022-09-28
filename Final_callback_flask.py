@@ -120,9 +120,10 @@ def index():
 @app.route('/predict', methods = ['POST'])
 def predict():
     try:
-        path1 = request.file['file']
+        path1 = request.form['file']
     except TypeError:
-        print("Error!, 400",file=sys.stdout)
+        return "Error!, 400"
+    #file=sys.stdout
     path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'  
     model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
     scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'  
