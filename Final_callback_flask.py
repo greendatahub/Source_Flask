@@ -121,8 +121,8 @@ def index():
 def predict():
     try:
         path1 = request.file['file']
-    except:
-        return print("Error!, 400",file=sys.stdout)
+    except TypeError:
+        print("Error!, 400",file=sys.stdout)
     path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'  
     model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
     scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'  
