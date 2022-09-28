@@ -130,12 +130,8 @@ def predict():
     final_DF = pd.concat([previous_data,now_data])
     length = len(final_DF)-2
     model = prediction(model_path,scaler_path)
-    try:
-        response = model.prediction_output(final_DF,length,size,return_date)
-        global response
-        print("Success!, 200")
-    except:
-        print("Error!, 500")
+    response = model.prediction_output(final_DF,length,size,return_date)
+    print("Success!, 200")
     return response
         
     #return response
