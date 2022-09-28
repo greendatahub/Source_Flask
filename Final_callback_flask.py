@@ -14,12 +14,13 @@ import os
 warnings.filterwarnings(action='ignore')
 from flask import Flask,request,render_template,jsonify,redirect,url_for,make_response
 
-def preprocessing_ML(path,return_date): # return_date 형태는 '2021-01-05', ''포함해 앞과 같은 형태 #매개변수가 모델 경로 지정
+def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 앞과 같은 형태 #매개변수가 모델 경로 지정
     # 데이터 로드
     DF_env = pd.read_excel(path,sheet_name = '환경정보_일별(딸기)')
     DF_growth = pd.read_excel(path,sheet_name = '생육정보_일별(딸기)')
     DF_size = pd.read_excel(path,sheet_name = '재배면적').iloc[0,0]
-
+    return_date = pd.read_excel(path,sheet_name = '수확시기').iloc[0,0]
+    
   # returndate로 첫 수확 날짜=생육측정 날짜를 받으면, 그시기의 2주전 까지의 데이터를 훈련데이터로 사용 
     DF_env['수집일'] = pd.to_datetime(DF_env['수집일'])
     DF_growth['조사일'] = pd.to_datetime(DF_growth['조사일'])
@@ -35,7 +36,7 @@ def preprocessing_ML(path,return_date): # return_date 형태는 '2021-01-05', ''
     final_DF.columns=['초장(cm)','엽장(cm)','엽폭(cm)','엽수(개)','착과수(개)','내부CO2(ppm)','내부습도(%)','내부온도(도)']
     start_date=final_DF.index[-1]
 
-    return final_DF, start_date,DF_size
+    return final_DF, start_date,DF_size,return_date
 
 def preprocessing_ML2(path,start_date): # 이전 작기
     # 데이터 로드
@@ -57,8 +58,7 @@ def preprocessing_ML2(path,start_date): # 이전 작기
     final_DF = pd.concat([DF_growth,DF_env],axis=1,ignore_index=True)
     final_DF=final_DF.dropna(axis=0)
     final_DF.columns=['초장(cm)','엽장(cm)','엽폭(cm)','엽수(개)','착과수(개)','내부CO2(ppm)','내부습도(%)','내부온도(도)']
-
-
+    
     return final_DF
 
 def preprocessing_LSTM(Data,past=3):
@@ -119,13 +119,14 @@ def index():
     
 @app.route('/predict', methods = ['POST'])
 def predict():
-    path1 = request.files['file']
-    print(path1)
+    try:
+        path1 = request.file['file']
+    except:
+        return print("Error!, 400")
     path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'  
     model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
-    scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'
-    return_date = '2023-01-21'  
-    previous_data, start_date,size = preprocessing_ML(path1,return_date)
+    scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'  
+    previous_data, start_date,size, return_date = preprocessing_ML(path1,return_date)
     now_data = preprocessing_ML2(path2,start_date)
     final_DF = pd.concat([previous_data,now_data])
     length = len(final_DF)-2
