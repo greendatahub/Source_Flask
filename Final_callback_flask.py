@@ -20,8 +20,8 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     DF_growth = pd.read_excel(path,sheet_name = '생육정보_일별(딸기)')
     DF_size = pd.read_excel(path,sheet_name = '재배면적').iloc[0,0]
     return_date = pd.read_excel(path,sheet_name = '수확시기').iloc[0,0]
-    if type(return_date) != 'str':
-        return_date = str(return_date)
+    if type(return_date) != type(str):
+        return_date = return_date.strftime('%Y-%m-%d')
     # returndate로 첫 수확 날짜=생육측정 날짜를 받으면, 그시기의 2주전 까지의 데이터를 훈련데이터로 사용 
     DF_env['수집일'] = pd.to_datetime(DF_env['수집일'])
     DF_growth['조사일'] = pd.to_datetime(DF_growth['조사일'])
