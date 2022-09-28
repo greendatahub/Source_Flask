@@ -132,6 +132,7 @@ def predict():
     model = prediction(model_path,scaler_path)
     try:
         response = model.prediction_output(final_DF,length,size,return_date)
+        global response
         print("Success!, 200")
     except:
         print("Error!, 500")
