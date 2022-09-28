@@ -110,8 +110,6 @@ class prediction(object):
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-response = {}
-
     
 @app.route('/', methods = ['GET'])
 def index():
@@ -132,8 +130,11 @@ def predict():
     final_DF = pd.concat([previous_data,now_data])
     length = len(final_DF)-2
     model = prediction(model_path,scaler_path)
-    response = model.prediction_output(final_DF,length,size,return_date)
-    print("Success!, 200")
+    try: 
+        response = model.prediction_output(final_DF,length,size,return_date)
+        print("Success!, 200")
+    except:
+        print("Error!, 500")
     return response
         
     #return response
