@@ -28,7 +28,7 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     DF_growth['조사일'] = pd.to_datetime(DF_growth['조사일'])
     DF_env=DF_env.set_index('수집일')
     DF_growth=DF_growth.set_index('조사일')
-    cut_date = DF_growth[ :return_date].index[-3]
+    cut_date = DF_growth[:return_date].index[-3]
     DF_env = DF_env[cut_date:]
     DF_growth = DF_growth[cut_date:]
     DF_env=DF_env.resample(rule='d').mean()
