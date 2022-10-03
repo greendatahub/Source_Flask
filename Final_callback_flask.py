@@ -27,11 +27,12 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     DF_growth['Date'] = pd.to_datetime(DF_growth['Date'])
     DF_env=DF_env.set_index('Date')
     DF_growth=DF_growth.set_index('Date')
-    cut_date = DF_growth[:return_date].index[-3]
+    cut_date = DF_growth[:return_date].index[-1] - datetime.timedelta(days=14)
     DF_env = DF_env[cut_date:]
     DF_growth = DF_growth[cut_date:]
     DF_env=DF_env.resample(rule='d').mean()
     DF_env=DF_env.resample(rule='7d',label='left').mean()
+    DF_growth=DF_growth.resample(rule='7d', label='left').mean()
     final_DF = pd.concat([DF_growth,DF_env],axis=1)
     final_DF=final_DF.dropna(axis=0)
     final_DF.columns=['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber','Carbon','Humidity','Temperature']
