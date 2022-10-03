@@ -23,10 +23,10 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     if type(return_date) != type(str):
         return_date = return_date.strftime('%Y-%m-%d')
     # returndate로 첫 수확 날짜=생육측정 날짜를 받으면, 그시기의 2주전 까지의 데이터를 훈련데이터로 사용 
-    DF_env['수집일'] = pd.to_datetime(DF_env['수집일'])
-    DF_growth['조사일'] = pd.to_datetime(DF_growth['조사일'])
-    DF_env=DF_env.set_index('수집일')
-    DF_growth=DF_growth.set_index('조사일')
+    DF_env['Date'] = pd.to_datetime(DF_env['Date'])
+    DF_growth['Date'] = pd.to_datetime(DF_growth['Date'])
+    DF_env=DF_env.set_index('Date')
+    DF_growth=DF_growth.set_index('Date')
     cut_date = DF_growth[:return_date].index[-3]
     DF_env = DF_env[cut_date:]
     DF_growth = DF_growth[cut_date:]
@@ -45,11 +45,11 @@ def preprocessing_ML2(path,start_date): # 이전 작기
     DF_growth = pd.read_excel(path,sheet_name = '생육정보_일별(딸기)')
 
   # returndate로 첫 수확 날짜=생육측정 날짜를 받으면, 그시기의 2주전 까지의 데이터를 훈련데이터로 사용 
-    DF_env['수집일'] = pd.to_datetime(DF_env['수집일'])   + datetime.timedelta(days=365)
-    DF_growth['조사일'] = pd.to_datetime(DF_growth['조사일'])  + datetime.timedelta(days=365)
+    DF_env['Date'] = pd.to_datetime(DF_env['Date'])   + datetime.timedelta(days=365)
+    DF_growth['Date'] = pd.to_datetime(DF_growth['Date'])  + datetime.timedelta(days=365)
 
-    DF_env=DF_env.set_index('수집일')
-    DF_growth=DF_growth.set_index('조사일')
+    DF_env=DF_env.set_index('Date')
+    DF_growth=DF_growth.set_index('Date')
     cut_date = DF_growth[start_date:].index[0]
 
     DF_env = DF_env[cut_date:]
