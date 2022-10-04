@@ -128,7 +128,7 @@ def predict():
     scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'  
     previous_data, start_date,size, return_date = preprocessing_ML(path1)
     now_data = preprocessing_ML2(path2,start_date)
-    final_DF = pd.concat([previous_data,now_data])
+    final_DF = pd.concat([previous_data,now_data]).sort_index()
     length = len(final_DF)-2
     model = prediction(model_path,scaler_path)
     try: 
