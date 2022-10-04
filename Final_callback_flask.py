@@ -26,7 +26,12 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     DF_env['Date'] = pd.to_datetime(DF_env['Date'])
     DF_growth['Date'] = pd.to_datetime(DF_growth['Date'])
     DF_env=DF_env.set_index('Date')
-    DF_growth=DF_growth.set_index('Date')
+    DF_growth=DF_growth.set_index('Date')    
+    
+    s = DF_growth.index[0]
+    e = DF_growth.index[-1]
+    DF_env = DF_env[s:e]
+    
     cut_date = DF_growth[:return_date].index[-1] - datetime.timedelta(days=14)
     DF_env = DF_env[cut_date:]
     DF_growth = DF_growth[cut_date:]
@@ -48,15 +53,20 @@ def preprocessing_ML2(path,start_date): # 이전 작기
   # returndate로 첫 수확 날짜=생육측정 날짜를 받으면, 그시기의 2주전 까지의 데이터를 훈련데이터로 사용 
     DF_env['Date'] = pd.to_datetime(DF_env['Date'])   + datetime.timedelta(days=365)
     DF_growth['Date'] = pd.to_datetime(DF_growth['Date'])  + datetime.timedelta(days=365)
-
     DF_env=DF_env.set_index('Date')
     DF_growth=DF_growth.set_index('Date')
+    
+    s = DF_growth.index[0]
+    e = DF_growth.index[-1]
+    DF_env = DF_env[s:e]
+    
     cut_date = DF_growth[start_date:].index[0]
 
     DF_env = DF_env[cut_date:]
     DF_growth = DF_growth[cut_date:]
     DF_env=DF_env.resample(rule='d').mean()
     DF_env=DF_env.resample(rule='7d',label='left').mean()
+    DF_growth=DF_growth.resample(rule='7d', label='left').mean()
     final_DF = pd.concat([DF_growth,DF_env],axis=1,ignore_index=True)
     final_DF=final_DF.dropna(axis=0)
     final_DF.columns=['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber','Carbon','Humidity','Temperature']
