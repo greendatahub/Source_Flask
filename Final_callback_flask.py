@@ -117,6 +117,8 @@ class prediction(object):
     date=[]
     for i in date_list:
         date.append(i.strftime("%Y-%m-%d"))
+    num = len(date)
+    value = value[:num]
     total_output = {'date': date , 'pred' : value}
     print(total_output)
     return total_output
