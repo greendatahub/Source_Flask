@@ -37,6 +37,7 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     DF_growth = DF_growth[cut_date:]
     DF_env=DF_env.resample(rule='d').mean()
     DF_env=DF_env.resample(rule='7d',label='left').mean()
+    DF_growth=DF_growth.resample(rule='d').mean()
     DF_growth=DF_growth.resample(rule='7d', label='left').mean()
     final_DF = pd.concat([DF_growth,DF_env],axis=1)
     final_DF=final_DF.dropna(axis=0)
@@ -66,6 +67,7 @@ def preprocessing_ML2(path,start_date): # 이전 작기
     DF_growth = DF_growth[cut_date:]
     DF_env=DF_env.resample(rule='d').mean()
     DF_env=DF_env.resample(rule='7d',label='left').mean()
+    DF_growth=DF_growth.resample(rule='d').mean()
     DF_growth=DF_growth.resample(rule='7d', label='left').mean()
     final_DF = pd.concat([DF_growth,DF_env],axis=1,ignore_index=True)
     final_DF=final_DF.dropna(axis=0)
