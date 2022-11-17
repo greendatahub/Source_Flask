@@ -32,7 +32,7 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     e = DF_growth.index[-1]
     DF_env = DF_env[s:e]
     
-    cut_date = DF_growth[:return_date].index[-1] - datetime.timedelta(days=14)
+    cut_date = DF_growth[:return_date].index[-1] - datetime.timedelta(days=21)
     DF_env = DF_env[cut_date:]
     DF_growth = DF_growth[cut_date:]
     DF_env=DF_env.resample(rule='d').mean()
@@ -112,7 +112,8 @@ class prediction(object):
     value = []
     for i in range(len(y_pred)):
         value.append(y_pred[i][0])
-    base = datetime.datetime.strptime(return_date,'%Y-%m-%d') + datetime.timedelta(days=7)
+    #base = datetime.datetime.strptime(return_date,'%Y-%m-%d') + datetime.timedelta(days=7)
+    base = datetime.datetime.strptime(return_date,'%Y-%m-%d')
     date_list = [base + datetime.timedelta(weeks=x) for x in range(length) if x <= 17]
     date=[]
     for i in date_list:
