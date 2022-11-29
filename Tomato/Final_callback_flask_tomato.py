@@ -36,20 +36,20 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     DF_env = DF_env[cut_date:]
     DF_growth = DF_growth[cut_date:]
     DF_env=DF_env.resample(rule='d').mean()
-    DF_env=DF_env.resample(rule='7d',label='left').mean()
+    DF_env=DF_env.resample(rule='w',label='left').mean()
     DF_growth=DF_growth.resample(rule='d').mean()
-    DF_growth=DF_growth.resample(rule='7d', label='left').mean()
+    DF_growth=DF_growth.resample(rule='w', label='left').mean()
     final_DF = pd.concat([DF_growth,DF_env],axis=1)
     final_DF=final_DF.dropna(axis=0)
-    final_DF.columns=['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber','Carbon','Humidity','Temperature']
+    final_DF.columns=['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber','Carbon','Humidity','Temperature'] <수정>
     start_date=final_DF.index[-1]
 
     return final_DF, start_date,DF_size,return_date
 
 def preprocessing_ML2(path,start_date): # 이전 작기
     # 데이터 로드
-    DF_env = pd.read_excel(path,sheet_name = '환경정보_일별(딸기)') 
-    DF_growth = pd.read_excel(path,sheet_name = '생육정보_일별(딸기)')
+    DF_env = pd.read_excel(path,sheet_name = '환경정보_일별(방울토마토)') 
+    DF_growth = pd.read_excel(path,sheet_name = '생육정보_일별(방울토마토)')
 
   # returndate로 첫 수확 날짜=생육측정 날짜를 받으면, 그시기의 2주전 까지의 데이터를 훈련데이터로 사용 
     DF_env['Date'] = pd.to_datetime(DF_env['Date'])   + datetime.timedelta(days=365)
@@ -72,13 +72,13 @@ def preprocessing_ML2(path,start_date): # 이전 작기
     DF_growth=DF_growth.resample(rule='w', label='left').mean()
     final_DF = pd.concat([DF_growth,DF_env],axis=1,ignore_index=True)
     final_DF=final_DF.dropna(axis=0)
-    final_DF.columns=['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber','Carbon','Humidity','Temperature']
+    final_DF.columns=['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber','Carbon','Humidity','Temperature'] <수정>
     
     return final_DF
 
 def preprocessing_LSTM(Data,past=3):
-    생육데이터=Data[['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber']]
-    환경데이터=Data[['Carbon','Humidity','Temperature']]  
+    생육데이터=Data[['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber']] <수정>
+    환경데이터=Data[['Carbon','Humidity','Temperature']]  <수정>
     train_X1=[]
     train_X2=[]
     n_future = 1 # 에측하고자하는 미래의 날짜 거리
@@ -94,7 +94,6 @@ class prediction(object):
   def __init__(self,model_path,scaler_path):
 
     self.scaler = joblib.load(scaler_path)  
-    #self.scaler = joblib.load('/content/drive/MyDrive/2022_그린데이터랩_프로젝트/딸기 데이터/모델저장/all_farm_scaler.pkl')   
     self.model_path = model_path
 
   def preparing_data(self,data):
@@ -105,7 +104,6 @@ class prediction(object):
 
   def prediction_output(self,data,length,size,return_date):
     train_X1, train_X2= self.preparing_data(data)
-    #loaded = keras.models.load_model("/content/drive/MyDrive/2022_그린데이터랩_프로젝트/딸기 데이터/모델저장/all_Farm_LSTM5.hdf5")
     loaded = keras.models.load_model(self.model_path)
     y_pred=loaded.predict([train_X1,train_X2]).astype('float32')
     y_pred = y_pred*size
@@ -139,9 +137,9 @@ def predict():
         path1 = request.files['file']
     except TypeError:
         print("Error!, 400",file=sys.stdout)
-    path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'  
-    model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
-    scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'  
+    path2 = '/home/ubuntu/Source_flask_tomato/Past_Data_tomato.xlsx'  
+    model_path = '/home/ubuntu/Source_flask_tomato/Final_LSTM2.hdf5'
+    scaler_path = '/home/ubuntu/Source_flask_tomato/scaler1.joblib'  
     previous_data, start_date,size, return_date = preprocessing_ML(path1)
     now_data = preprocessing_ML2(path2,start_date)
     final_DF = pd.concat([previous_data,now_data]).sort_index()
