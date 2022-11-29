@@ -16,8 +16,8 @@ from flask import Flask,request,render_template,jsonify,redirect,url_for,make_re
 
 def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 앞과 같은 형태 #매개변수가 모델 경로 지정
     # 데이터 로드
-    DF_env = pd.read_excel(path,sheet_name = '환경정보_일별(딸기)')
-    DF_growth = pd.read_excel(path,sheet_name = '생육정보_일별(딸기)')
+    DF_env = pd.read_excel(path,sheet_name = '환경정보_일별(방울토마토)')
+    DF_growth = pd.read_excel(path,sheet_name = '생육정보_일별(방울토마토)')
     DF_size = pd.read_excel(path,sheet_name = '재배면적').iloc[0,0]
     return_date = pd.read_excel(path,sheet_name = '수확시기').iloc[-1,0]
     if type(return_date) != type(str):
