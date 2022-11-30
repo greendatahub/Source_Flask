@@ -138,7 +138,7 @@ def predict():
         path1 = request.files['file']
     except TypeError:
         print("Error!, 400",file=sys.stdout)
-    path2 = '/home/ubuntu/Source_flask/Past_Data.xlsx'  
+    path2 = '/home/ubuntu/Source_flask/Past_Data_strawberry.xlsx'  
     model_path = '/home/ubuntu/Source_flask/Final_LSTM.hdf5'
     scaler_path = '/home/ubuntu/Source_flask/scaler.joblib'  
     previous_data, start_date,size, return_date = preprocessing_ML(path1)
