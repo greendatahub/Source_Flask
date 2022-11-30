@@ -41,7 +41,7 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     DF_growth=DF_growth.resample(rule='w', label='left').mean()
     final_DF = pd.concat([DF_growth,DF_env],axis=1)
     final_DF=final_DF.dropna(axis=0)
-    final_DF.columns=['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber','Carbon','Humidity','Temperature'] <수정>
+    final_DF.columns=['Week','Flowerheight','Length','Stemwidth','BloomG','Humidity','Solar','Temperature','Carbon']
     start_date=final_DF.index[-1]
 
     return final_DF, start_date,DF_size,return_date
@@ -72,13 +72,13 @@ def preprocessing_ML2(path,start_date): # 이전 작기
     DF_growth=DF_growth.resample(rule='w', label='left').mean()
     final_DF = pd.concat([DF_growth,DF_env],axis=1,ignore_index=True)
     final_DF=final_DF.dropna(axis=0)
-    final_DF.columns=['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber','Carbon','Humidity','Temperature'] <수정>
+    final_DF.columns=['Week','Flowerheight','Length','Stemwidth','BloomG','Humidity','Solar','Temperature','Carbon']
     
     return final_DF
 
 def preprocessing_LSTM(Data,past=3):
-    생육데이터=Data[['Leaflength','Middlelength','Leafwidth','Leafnumber','Fruitnumber']] <수정>
-    환경데이터=Data[['Carbon','Humidity','Temperature']]  <수정>
+    생육데이터=Data[['Week','Flowerheight','Length','Stemwidth','BloomG']] <수정>
+    환경데이터=Data[['Humidity','Solar','Temperature','Carbon']]  <수정>
     train_X1=[]
     train_X2=[]
     n_future = 1 # 에측하고자하는 미래의 날짜 거리
