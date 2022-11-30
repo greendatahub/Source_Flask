@@ -77,8 +77,8 @@ def preprocessing_ML2(path,start_date): # 이전 작기
     return final_DF
 
 def preprocessing_LSTM(Data,past=3):
-    생육데이터=Data[['Week','Flowerheight','Length','Stemwidth','BloomG']] <수정>
-    환경데이터=Data[['Humidity','Solar','Temperature','Carbon']]  <수정>
+    생육데이터=Data[['Week','Flowerheight','Length','Stemwidth','BloomG']] 
+    환경데이터=Data[['Humidity','Solar','Temperature','Carbon']]
     train_X1=[]
     train_X2=[]
     n_future = 1 # 에측하고자하는 미래의 날짜 거리
