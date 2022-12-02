@@ -27,8 +27,8 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     DF_env['Carbon'] = DF_env['Carbon'].apply(lambda x: x * 10000)
     
     DF_growth['Date'] = pd.to_datetime(DF_growth['Date'])
-    DF_env=DF_env.set_index('Date')
-    DF_growth=DF_growth.set_index('Date')    
+    DF_env=DF_env.set_index('Date').sort_index()
+    DF_growth=DF_growth.set_index('Date').sort_index()    
     
     s = DF_growth.index[0]
     e = DF_growth.index[-1]
