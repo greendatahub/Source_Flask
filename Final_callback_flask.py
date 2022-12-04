@@ -14,6 +14,23 @@ import os
 warnings.filterwarnings(action='ignore')
 from flask import Flask,request,render_template,jsonify,redirect,url_for,make_response
 
+def modify_date(df):
+    if pd.api.types.is_int64_dtype(df['Date'][0]):
+      df['Date']=df['Date'].astype(str)
+      df['Date']=pd.to_datetime(df['Date'],format='%Y%m%d')
+    elif pd.api.types.is_datetime64_dtype(df['Date'][0] is False):
+      if '-' in df['Date'][0]:
+        if ":" in df['Date'][0]:
+          df['Date']=pd.to_datetime(df['Date'],format='%Y-%m-%d %H:%M:%S')
+        else :
+          df['Date']=pd.to_datetime(df['Date'],format='%Y-%m-%d')
+      else :
+        df['Date']=pd.to_datetime(df['Date'],format='%Y%m%d')
+    else :
+      df['Date']=df['Date']
+    return df['Date']
+
+
 def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 앞과 같은 형태 #매개변수가 모델 경로 지정
     # 데이터 로드
     DF_env = pd.read_excel(path,sheet_name = '환경정보_일별(딸기)')
@@ -23,6 +40,9 @@ def preprocessing_ML(path): # return_date 형태는 '2021-01-05', ''포함해 �
     if type(return_date) != type(str):
         return_date = return_date.strftime('%Y-%m-%d')
     # returndate로 첫 수확 날짜=생육측정 날짜를 받으면, 그시기의 2주전 까지의 데이터를 훈련데이터로 사용 
+    DF_env['Date'] = modify_date(DF_env)
+    DF_growth['Date'] = modify_date(DF_growth)
+    
     DF_env['Date'] = pd.to_datetime(DF_env['Date'])
     DF_env['Carbon'] = DF_env['Carbon'].apply(lambda x: x * 10000)
     
